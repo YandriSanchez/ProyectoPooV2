@@ -1,5 +1,7 @@
 package ec.edu.ups.poo.ventanas;
 
+import ec.edu.ups.poo.clases.GestorProveedor;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +12,7 @@ public class VentanaPrincipal extends Frame {
     private Button btnGestionProveedores;
     private Button btnRealizarSolicitud;
     private Button btnRegresar;
+    private VentanaGestionProveedor ventanaGestionProveedor;
 
     public VentanaPrincipal() {
         setTitle("Sistema de Gestión");
@@ -51,7 +54,13 @@ public class VentanaPrincipal extends Frame {
         btnGestionProveedores.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir ventana de Gestión de Proveedores.");
+                GestorProveedor gestorProveedor = new GestorProveedor();
+
+                // Cargar proveedores por defecto antes de abrir la ventana
+                gestorProveedor.proveedoresPorDefecto();
+
+                // Abrir la ventana de gestión de proveedores
+                ventanaGestionProveedor = new VentanaGestionProveedor(gestorProveedor);
             }
         });
 

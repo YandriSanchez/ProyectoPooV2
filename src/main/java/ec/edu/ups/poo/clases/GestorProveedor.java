@@ -6,7 +6,7 @@ import ec.edu.ups.poo.enums.TipoProductoConImpuesto;
 
 public class GestorProveedor {
 
-    private static List<Proveedor> listaProveedores = new ArrayList<>();
+    public static List<Proveedor> listaProveedores = new ArrayList<>();
     private static List<ProductoConImpuesto> listaProductosConImpuestos;
     private static List<ProductoSinImpuesto> listaProductosSinImpuestos;
     private List<? extends Producto> listaProductos;
@@ -19,7 +19,7 @@ public class GestorProveedor {
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
 
-        //String identificacion = GestorMenu.solicitarCedulaValida();
+        String identificacion = scanner.nextLine();
 
         System.out.print("Teléfono: ");
         String telefono = scanner.nextLine();
