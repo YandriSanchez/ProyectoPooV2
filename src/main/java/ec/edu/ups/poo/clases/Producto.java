@@ -34,4 +34,6 @@ public abstract class Producto {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    public abstract double aplicarDescuento(double porcentajeDescuento);
 }

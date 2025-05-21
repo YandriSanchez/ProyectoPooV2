@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GestorCompras{
-    private final List<DetalleCompra> listaCompras = new ArrayList<>();
+    private final List<SolicitudCompra> listaCompras = new ArrayList<>();
     private final Scanner scanner = new Scanner(System.in);
 
     public void registrarSolicitudCompra() {
@@ -43,7 +43,7 @@ public class GestorCompras{
         System.out.println("Ingrese el estado de la solicitud (SOLICITADA, EN_REVISION, APROBADA, RECHAZADA): ");
         EstadoSolicitud estado = EstadoSolicitud.valueOf(scanner.next().toUpperCase());
 
-        DetalleCompra nuevaCompra = new DetalleCompra(estado, new GregorianCalendar(), listaItemCompra);
+        SolicitudCompra nuevaCompra = new SolicitudCompra(estado, new GregorianCalendar(), listaItemCompra);
         listaCompras.add(nuevaCompra);
 
         System.out.println("Solicitud de compra registrada exitosamente.");
@@ -53,14 +53,14 @@ public class GestorCompras{
         if (listaCompras.isEmpty()) {
             System.out.println("No hay solicitudes registradas.");
         } else {
-            for (DetalleCompra compra : listaCompras) {
+            for (SolicitudCompra compra : listaCompras) {
                 System.out.println(compra.toString());
                 compra.mostrarResumenCompra();
             }
         }
     }
 
-    public DetalleCompra buscarSolicitudPorNumero(int numero) {
+    public SolicitudCompra buscarSolicitudPorNumero(int numero) {
         if (numero >= 0 && numero < listaCompras.size()) {
             return listaCompras.get(numero);
         }
@@ -69,7 +69,7 @@ public class GestorCompras{
     }
 
     public void gestionarEstadoSolicitud(int numero, EstadoSolicitud nuevoEstado) {
-        DetalleCompra compra = buscarSolicitudPorNumero(numero);
+        SolicitudCompra compra = buscarSolicitudPorNumero(numero);
         if (compra != null) {
             compra.setEstado(nuevoEstado);
             System.out.println("Estado actualizado a: " + nuevoEstado);
@@ -77,21 +77,21 @@ public class GestorCompras{
     }
 
     public void calcularTotalSolicitud(int numero) {
-        DetalleCompra compra = buscarSolicitudPorNumero(numero);
+        SolicitudCompra compra = buscarSolicitudPorNumero(numero);
         if (compra != null) {
-            System.out.println("Total de la compra: " + compra.calculcarTotal());
+            System.out.println("Total de la compra: " + compra.calcularTotal());
         }
     }
 
     public void eliminarProductoPorCodigo() {
-        DetalleCompra detalleCompra = new DetalleCompra();
+        SolicitudCompra solicitudCompra = new SolicitudCompra();
         System.out.print("Ingrese el nombre del producto a eliminar: ");
         String codigoProducto = scanner.nextLine();
 
-        ItemCompra itemEncontrado = detalleCompra.buscarItem(codigoProducto);
+        ItemCompra itemEncontrado = solicitudCompra.buscarItem(codigoProducto);
 
         if (itemEncontrado != null) {
-            boolean eliminado = detalleCompra.removerItem(itemEncontrado.getProducto().getCodigo());
+            boolean eliminado = solicitudCompra.removerItem(itemEncontrado.getProducto().getCodigo());
             if (eliminado) {
                 System.out.println("Producto eliminado correctamente.");
             } else {

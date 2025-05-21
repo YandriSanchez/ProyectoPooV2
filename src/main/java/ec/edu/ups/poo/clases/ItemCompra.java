@@ -12,11 +12,11 @@ public class ItemCompra implements OperacionesCompra {
         this.producto = producto;
         this.cantidad = cantidad;
         this.precioUnitario = producto.getPrecio();
-        this.subtotal = calculcarTotal();
+        this.subtotal = calcularTotal();
     }
 
     @Override
-    public double calculcarTotal() {
+    public double calcularTotal() {
         return precioUnitario * cantidad; // Aplica el impuesto
     }
 
@@ -34,7 +34,7 @@ public class ItemCompra implements OperacionesCompra {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-        this.subtotal = calculcarTotal();
+        this.subtotal = calcularTotal();
     }
 
     public double getPrecioUnitario() {
@@ -43,7 +43,7 @@ public class ItemCompra implements OperacionesCompra {
 
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
-        this.subtotal = calculcarTotal();
+        this.subtotal = calcularTotal();
     }
 
     public double getSubtotal() {

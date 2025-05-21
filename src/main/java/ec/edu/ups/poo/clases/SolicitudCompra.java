@@ -7,16 +7,16 @@ import ec.edu.ups.poo.interfaces.OperacionesCompra;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class DetalleCompra implements OperacionesCompra {
+public class SolicitudCompra implements OperacionesCompra {
     private EstadoSolicitud estado;
     private static List<ItemCompra> listadoItemProductos;
     private GregorianCalendar fechaEmision;
 
-    public DetalleCompra(){
+    public SolicitudCompra(){
 
     }
 
-    public DetalleCompra(EstadoSolicitud estado, GregorianCalendar fechaEmision, List<ItemCompra> listadoProductos) {
+    public SolicitudCompra(EstadoSolicitud estado, GregorianCalendar fechaEmision, List<ItemCompra> listadoProductos) {
         this.estado = estado;
         this.fechaEmision = fechaEmision;
         this.listadoItemProductos = listadoProductos;
@@ -39,7 +39,7 @@ public class DetalleCompra implements OperacionesCompra {
     }
 
     @Override
-    public double calculcarTotal() {
+    public double calcularTotal() {
         double total = 0;
         for (ItemCompra item : listadoItemProductos) {
             total += item.getSubtotal();
@@ -75,7 +75,7 @@ public class DetalleCompra implements OperacionesCompra {
         for (ItemCompra item : listadoItemProductos) {
             System.out.println(item);
         }
-        System.out.println("Total: " + calculcarTotal());
+        System.out.println("Total: " + calcularTotal());
     }
 
     @Override

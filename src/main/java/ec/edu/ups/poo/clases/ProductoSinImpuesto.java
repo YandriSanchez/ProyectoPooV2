@@ -30,4 +30,11 @@ public class ProductoSinImpuesto extends Producto {
                 ", tipoImpuesto=" + tipoExencion +
                 '}';
     }
+
+    @Override
+    public double aplicarDescuento(double porcentajeDescuento) {
+        double precioConDescuento = getPrecio() * (1 - porcentajeDescuento / 100);
+        return Math.max(precioConDescuento, 0);
+    }
+
 }
