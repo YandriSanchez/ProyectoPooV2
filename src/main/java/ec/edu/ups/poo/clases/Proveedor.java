@@ -13,7 +13,6 @@ public class Proveedor extends Persona{
         this.impuesto = tieneImpuesto;
         this.listaProductos = listaProductos;
     }
-
     public boolean isImpuesto() {
         return impuesto;
     }
