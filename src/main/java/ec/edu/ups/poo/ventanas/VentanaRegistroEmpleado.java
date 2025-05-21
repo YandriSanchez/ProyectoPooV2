@@ -25,7 +25,6 @@ public class VentanaRegistroEmpleado extends Frame {
         setLayout(new GridLayout(8, 2));
         setLocationRelativeTo(null);
 
-        // Crear Labels y TextFields
         add(new Label("Nombre:"));
         txtNombre = new TextField();
         add(txtNombre);
@@ -62,7 +61,6 @@ public class VentanaRegistroEmpleado extends Frame {
         add(btnRegistrar);
         add(btnRegresar);
 
-        // Evento para registrar empleado
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,7 +71,6 @@ public class VentanaRegistroEmpleado extends Frame {
             }
         });
 
-        // Evento para regresar
         btnRegresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
