@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GestorCompras{
-    private final List<SolicitudCompra> listaCompras = new ArrayList<>();
+    /*private final List<SolicitudCompra> listaCompras = new ArrayList<>();
     private final Scanner scanner = new Scanner(System.in);
 
     public void registrarSolicitudCompra() {
@@ -116,6 +116,6 @@ public class GestorCompras{
                 "\nAPROBADA"+
                 "\nRECHAZADA");
         return EstadoSolicitud.valueOf(scanner.next().toUpperCase());
-    }
+    }*/
 
 }

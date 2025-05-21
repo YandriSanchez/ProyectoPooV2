@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class GestorMenu {
 
-    Scanner scanner = new Scanner(System.in);
+    /*Scanner scanner = new Scanner(System.in);
 
     public void mostrarMenuPrincipal() {
         int opcion;
@@ -201,5 +201,5 @@ public class GestorMenu {
             if (!esValida) System.out.println("Error: Cédula inválida. Intente nuevamente.");
         } while (!esValida);
         return cedula;
-    }
+    }*/
 }

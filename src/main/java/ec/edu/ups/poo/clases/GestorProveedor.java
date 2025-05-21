@@ -19,7 +19,7 @@ public class GestorProveedor {
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
 
-        String identificacion = GestorMenu.solicitarCedulaValida();
+        //String identificacion = GestorMenu.solicitarCedulaValida();
 
         System.out.print("Teléfono: ");
         String telefono = scanner.nextLine();
