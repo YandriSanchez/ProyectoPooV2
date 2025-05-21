@@ -4,24 +4,18 @@ import ec.edu.ups.poo.enums.TipoProductoConImpuesto;
 
 public class ProductoConImpuesto extends Producto implements OperacionesCompra {
     private TipoProductoConImpuesto tipoImpuesto;
-    private double precioConImpuesto;
 
     public ProductoConImpuesto(String nombre, String codigo, double precio, TipoProductoConImpuesto tipoImpuesto) {
         super(nombre, codigo, precio);
         this.tipoImpuesto = tipoImpuesto;
-        this.precioConImpuesto = calcularPrecioFinal();
     }
 
-
-    private double calcularPrecioFinal() {
+    // Método para calcular el precio final sin necesidad de un atributo
+    @Override
+    public double calcularTotal() {
         double tasa = (tipoImpuesto == TipoProductoConImpuesto.VALOR_AGREGADO_IVA) ? impuestoIVA :
                 (tipoImpuesto == TipoProductoConImpuesto.CONSUMO_ESPECIAL_ICE) ? impuestoICE : 0.0;
         return getPrecio() * (1 + tasa);
-    }
-
-    @Override
-    public double calculcarTotal() {
-        return precioConImpuesto; // Ya tiene aplicado el impuesto
     }
 
     public TipoProductoConImpuesto getTipoImpuesto() {
@@ -35,7 +29,13 @@ public class ProductoConImpuesto extends Producto implements OperacionesCompra {
                 ", codigo='" + getCodigo() + '\'' +
                 ", precioSinImpuesto=" + getPrecio() +
                 ", tipoImpuesto=" + tipoImpuesto +
-                ", precioConImpuesto=" + precioConImpuesto +
+                ", precioConImpuesto=" + calcularTotal() + // Se calcula directamente sin atributo
                 '}';
+    }
+
+    @Override
+    public double aplicarDescuento(double porcentajeDescuento) {
+        double precioConDescuento = calcularTotal() * (1 - porcentajeDescuento / 100);
+        return Math.max(precioConDescuento, 0); // Evita valores negativos
     }
 }
