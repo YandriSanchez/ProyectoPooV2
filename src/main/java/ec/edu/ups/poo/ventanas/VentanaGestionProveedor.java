@@ -1,14 +1,16 @@
 package ec.edu.ups.poo.ventanas;
 
+import ec.edu.ups.poo.App;
 import ec.edu.ups.poo.clases.GestorProveedor;
 import ec.edu.ups.poo.clases.Proveedor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VentanaGestionProveedor extends Frame {
 
-    private GestorProveedor gestorProveedor;
     private TextArea txtListaProveedores;
     private TextField txtCedulaBuscar;
     private Button btnAgregar;
@@ -18,14 +20,15 @@ public class VentanaGestionProveedor extends Frame {
     private Button btnBuscar;
     private Button btnRegresar;
     private Panel panelBusqueda;
+    private App gestorProveedores = new App();
 
-    public VentanaGestionProveedor(GestorProveedor gestorProveedor) {
-        this.gestorProveedor = gestorProveedor;
-
+    public VentanaGestionProveedor(List<Proveedor> listaProveedores) {
         setTitle("Gestión de Proveedores");
         setSize(400, 350);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
+
+        listaProveedores = gestorProveedores.proveedoresPorDefecto();
 
         Panel panelSuperior = new Panel(new GridLayout(1, 4, 10, 10));
         btnAgregar = new Button("Agregar");
@@ -49,7 +52,7 @@ public class VentanaGestionProveedor extends Frame {
 
         txtListaProveedores = new TextArea("", 10, 50, TextArea.SCROLLBARS_VERTICAL_ONLY);
         txtListaProveedores.setEditable(false);
-        cargarListaProveedores();
+        cargarListaProveedores(listaProveedores);
 
         Panel panelCentro = new Panel(new BorderLayout());
         panelCentro.add(panelBusqueda, BorderLayout.NORTH); // Panel de búsqueda encima
@@ -111,10 +114,10 @@ public class VentanaGestionProveedor extends Frame {
         setVisible(true);
     }
 
-    private void cargarListaProveedores() {
+    private void cargarListaProveedores(List<Proveedor> listaProveedores) {
         txtListaProveedores.setText("");
 
-        for (Proveedor proveedor : gestorProveedor.listaProveedores) {
+        for (Proveedor proveedor : listaProveedores) {
             txtListaProveedores.append(proveedor.getIdentificacion() + " - " + proveedor.getNombre()
                     + " - Impuesto: " + (proveedor.isImpuesto() ? "Sí" : "No") + "\n");
         }
@@ -128,23 +131,17 @@ public class VentanaGestionProveedor extends Frame {
 
     private void procesarAccionBusqueda() {
         String cedula = txtCedulaBuscar.getText().trim();
-        Proveedor proveedor = gestorProveedor.buscarProveedor(cedula);
 
-        if (proveedor != null) {
-            switch (btnBuscar.getLabel()) {
-                case "Eliminar":
-                    gestorProveedor.eliminarProveedor(cedula);
-                    cargarListaProveedores();
-                    break;
-                case "Editar":
-                    System.out.println("Abrir ventana de edición de proveedor...");
-                    break;
-                case "Ver Detalles":
-                    System.out.println("Abrir ventana de detalles del proveedor...");
-                    break;
-            }
-        } else {
-            System.out.println("No se encontró un proveedor con esa cédula.");
+        switch (btnBuscar.getLabel()) {
+            case "Eliminar":
+                gestorProveedores.eliminarProveedor(cedula);
+                break;
+            case "Editar":
+                System.out.println("Abrir ventana de edición de proveedor...");
+                break;
+            case "Ver Detalles":
+                System.out.println("Abrir ventana de detalles del proveedor...");
+                break;
         }
     }
 
