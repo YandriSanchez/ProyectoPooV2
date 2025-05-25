@@ -1,12 +1,9 @@
 package ec.edu.ups.poo.ventanas;
 
-import ec.edu.ups.poo.App;
-import ec.edu.ups.poo.clases.GestorProveedor;
 import ec.edu.ups.poo.clases.Proveedor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaGestionProveedor extends Frame {
@@ -118,6 +115,7 @@ public class VentanaGestionProveedor extends Frame {
             txtListaProveedores.append(proveedor.getIdentificacion() + " - " + proveedor.getNombre()
                     + " - Impuesto: " + (proveedor.isImpuesto() ? "Sí" : "No") + "\n");
         }
+        mostrarTodosProveedores();
     }
 
     private void mostrarPanelBusqueda(String accion) {
@@ -146,14 +144,25 @@ public class VentanaGestionProveedor extends Frame {
                     System.out.println("Proveedor eliminado.");
                     break;
                 case "Editar":
-                    System.out.println("Abrir ventana de edición de proveedor...");
+                    new VentanaEditarProveedor(proveedorEncontrado, listaProveedores);
                     break;
                 case "Ver Detalles":
-                    System.out.println("Abrir ventana de detalles del proveedor...");
+                    new VentanaDetallesProveedor(proveedorEncontrado);
                     break;
             }
         } else {
             System.out.println("No se encontró un proveedor con esa cédula.");
+        }
+    }
+
+    public void mostrarTodosProveedores() {
+        if (listaProveedores.isEmpty()) {
+            System.out.println("No hay proveedores registrados.");
+        } else {
+            for (Proveedor proveedor : listaProveedores) {
+                System.out.println("");
+                System.out.println(proveedor.toString());
+            }
         }
     }
 }

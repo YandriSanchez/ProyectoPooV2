@@ -13,7 +13,6 @@ public class App {
 
     private static final List<Empleado> listaEmpleados = new ArrayList<>();
     private static final List<Proveedor> listaProveedores = new ArrayList<>();
-    //private List<? extends Producto> listaProductos;
 
     public static void main(String[] args) {
         agregarEmpleadosPorDefecto();

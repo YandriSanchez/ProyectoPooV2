@@ -2,8 +2,6 @@ package ec.edu.ups.poo.clases;
 
 import ec.edu.ups.poo.enums.EstadoSolicitud;
 import ec.edu.ups.poo.interfaces.OperacionesCompra;
-
-
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -11,15 +9,18 @@ public class SolicitudCompra implements OperacionesCompra {
     private EstadoSolicitud estado;
     private static List<ItemCompra> listadoItemProductos;
     private GregorianCalendar fechaEmision;
+    private String codigo;
+    private Proveedor proveedor; // Nuevo atributo
 
-    public SolicitudCompra(){
-
+    public SolicitudCompra() {
     }
 
-    public SolicitudCompra(EstadoSolicitud estado, GregorianCalendar fechaEmision, List<ItemCompra> listadoProductos) {
+    public SolicitudCompra(EstadoSolicitud estado, GregorianCalendar fechaEmision, List<ItemCompra> listadoProductos, String codigo, Proveedor proveedor) {
         this.estado = estado;
         this.fechaEmision = fechaEmision;
         this.listadoItemProductos = listadoProductos;
+        this.codigo = codigo;
+        this.proveedor = proveedor; // Asigna el proveedor al constructor
     }
 
     public EstadoSolicitud getEstado() {
@@ -38,6 +39,22 @@ public class SolicitudCompra implements OperacionesCompra {
         this.fechaEmision = fechaEmision;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
     @Override
     public double calcularTotal() {
         double total = 0;
@@ -47,43 +64,18 @@ public class SolicitudCompra implements OperacionesCompra {
         return total;
     }
 
-    public boolean removerItem(String codigoProducto) {
-        for (ItemCompra item : listadoItemProductos) {
-            if (item.getProducto().getCodigo().equals(codigoProducto)) {
-                listadoItemProductos.remove(item);
-                System.out.println("Producto removido: " + codigoProducto);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ItemCompra buscarItem(String nombreProducto) {
-        for (ItemCompra item : listadoItemProductos) {
-            if (item.getProducto().getNombre().equalsIgnoreCase(nombreProducto)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    public void mostrarResumenCompra() {
-        System.out.println("Resumen de la Compra:");
-        System.out.println("Fecha de emisión: " + fechaEmision.getTime());
-        System.out.println("Estado: " + estado);
-        System.out.println("Productos:");
-        for (ItemCompra item : listadoItemProductos) {
-            System.out.println(item);
-        }
-        System.out.println("Total: " + calcularTotal());
-    }
-
     @Override
     public String toString() {
-        return "DetalleCompra{" +
-                "estado=" + estado +
+        return "SolicitudCompra{" +
+                "codigo='" + codigo + '\'' +
+                ", estado=" + estado +
                 ", fechaEmision=" + fechaEmision.getTime() +
+                ", proveedor=" + proveedor.getNombre() + // Muestra el nombre del proveedor
                 ", listadoProductos=" + listadoItemProductos +
                 '}';
+    }
+
+    public ItemCompra[] getListadoItemProductos() {
+        return listadoItemProductos.toArray(new ItemCompra[listadoItemProductos.size()]);
     }
 }

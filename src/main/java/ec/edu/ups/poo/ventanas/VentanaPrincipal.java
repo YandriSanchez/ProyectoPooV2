@@ -1,11 +1,11 @@
 package ec.edu.ups.poo.ventanas;
 
-import ec.edu.ups.poo.clases.Empleado;
-import ec.edu.ups.poo.clases.Proveedor;
+import ec.edu.ups.poo.clases.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaPrincipal extends Frame {
@@ -16,6 +16,7 @@ public class VentanaPrincipal extends Frame {
     private Button btnSalir;
     private final List<Empleado> listaEmpleados;
     private final List<Proveedor> listaProveedores;
+    private final List<SolicitudCompra> listaCompras = new ArrayList<>();
 
     public VentanaPrincipal(List<Empleado> listaEmpleados, List<Proveedor> listaProveedores) {
         this.listaEmpleados = listaEmpleados;
@@ -53,14 +54,15 @@ public class VentanaPrincipal extends Frame {
         btnRealizarSolicitud.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir ventana de Solicitud de Compra.");
+                mostrarTodosProveedores();
+                new VentanaGestionCompra(listaCompras,listaProveedores);
             }
         });
 
         btnGestionEmpleados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir ventana de Gestión de Empleados.");
+                new VentanaGestionEmpleado(listaEmpleados);
             }
         });
 
@@ -74,5 +76,27 @@ public class VentanaPrincipal extends Frame {
 
         setVisible(true);
     }
+
+    public void mostrarTodosProveedores() {
+        if (listaProveedores.isEmpty()) {
+            System.out.println("No hay proveedores registrados.");
+        } else {
+            for (Proveedor proveedor : listaProveedores) {
+                System.out.println(proveedor.getIdentificacion() + " - " + proveedor.getNombre());
+                System.out.println("Productos:");
+
+                List<? extends Producto> listaProductos = proveedor.getListaProductos();
+                if (listaProductos.isEmpty()) {
+                    System.out.println("No tiene productos registrados.");
+                } else {
+                    for (Producto producto : listaProductos) {
+                        System.out.println("- " + producto.getNombre());
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+
 }
 
