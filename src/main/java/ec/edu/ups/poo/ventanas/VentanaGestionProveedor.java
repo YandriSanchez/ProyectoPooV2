@@ -20,15 +20,15 @@ public class VentanaGestionProveedor extends Frame {
     private Button btnBuscar;
     private Button btnRegresar;
     private Panel panelBusqueda;
-    private App gestorProveedores = new App();
+    private List<Proveedor> listaProveedores;
 
     public VentanaGestionProveedor(List<Proveedor> listaProveedores) {
+        this.listaProveedores = listaProveedores;
+
         setTitle("Gestión de Proveedores");
         setSize(400, 350);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-
-        listaProveedores = gestorProveedores.proveedoresPorDefecto();
 
         Panel panelSuperior = new Panel(new GridLayout(1, 4, 10, 10));
         btnAgregar = new Button("Agregar");
@@ -46,17 +46,17 @@ public class VentanaGestionProveedor extends Frame {
         panelBusqueda.add(new Label("Ingrese cédula:"));
         txtCedulaBuscar = new TextField(15);
         panelBusqueda.add(txtCedulaBuscar);
-        btnBuscar = new Button("...........");
+        btnBuscar = new Button("Buscar");
         panelBusqueda.add(btnBuscar);
         panelBusqueda.setVisible(false);
 
         txtListaProveedores = new TextArea("", 10, 50, TextArea.SCROLLBARS_VERTICAL_ONLY);
         txtListaProveedores.setEditable(false);
-        cargarListaProveedores(listaProveedores);
+        cargarListaProveedores();
 
         Panel panelCentro = new Panel(new BorderLayout());
-        panelCentro.add(panelBusqueda, BorderLayout.NORTH); // Panel de búsqueda encima
-        panelCentro.add(txtListaProveedores, BorderLayout.CENTER); // Lista debajo
+        panelCentro.add(panelBusqueda, BorderLayout.NORTH);
+        panelCentro.add(txtListaProveedores, BorderLayout.CENTER);
 
         Panel panelInferior = new Panel(new FlowLayout(FlowLayout.LEFT));
         panelInferior.add(btnRegresar);
@@ -68,32 +68,29 @@ public class VentanaGestionProveedor extends Frame {
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelBusqueda();
-                btnBuscar.setLabel("Eliminar");
+                mostrarPanelBusqueda("Eliminar");
             }
         });
 
         btnEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarPanelBusqueda();
-                btnBuscar.setLabel("Editar");
+                mostrarPanelBusqueda("Editar");
             }
         });
 
         btnVerDetalles.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnBuscar.setLabel("Ver Detalles");
-                btnBuscar.setPreferredSize(btnBuscar.getPreferredSize());
-                mostrarPanelBusqueda();
+                mostrarPanelBusqueda("Ver Detalles");
             }
         });
 
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir ventana de Agregar Proveedor...");
+                new VentanaRegistroProveedor(listaProveedores);
+                dispose();
             }
         });
 
@@ -114,7 +111,7 @@ public class VentanaGestionProveedor extends Frame {
         setVisible(true);
     }
 
-    private void cargarListaProveedores(List<Proveedor> listaProveedores) {
+    private void cargarListaProveedores() {
         txtListaProveedores.setText("");
 
         for (Proveedor proveedor : listaProveedores) {
@@ -123,26 +120,40 @@ public class VentanaGestionProveedor extends Frame {
         }
     }
 
-    private void mostrarPanelBusqueda() {
+    private void mostrarPanelBusqueda(String accion) {
         panelBusqueda.setVisible(true);
+        btnBuscar.setLabel(accion);
         revalidate();
         repaint();
     }
 
     private void procesarAccionBusqueda() {
         String cedula = txtCedulaBuscar.getText().trim();
+        Proveedor proveedorEncontrado = null;
 
-        switch (btnBuscar.getLabel()) {
-            case "Eliminar":
-                gestorProveedores.eliminarProveedor(cedula);
+        for (Proveedor proveedor : listaProveedores) {
+            if (proveedor.getIdentificacion().equals(cedula)) {
+                proveedorEncontrado = proveedor;
                 break;
-            case "Editar":
-                System.out.println("Abrir ventana de edición de proveedor...");
-                break;
-            case "Ver Detalles":
-                System.out.println("Abrir ventana de detalles del proveedor...");
-                break;
+            }
+        }
+
+        if (proveedorEncontrado != null) {
+            switch (btnBuscar.getLabel()) {
+                case "Eliminar":
+                    listaProveedores.remove(proveedorEncontrado);
+                    cargarListaProveedores();
+                    System.out.println("Proveedor eliminado.");
+                    break;
+                case "Editar":
+                    System.out.println("Abrir ventana de edición de proveedor...");
+                    break;
+                case "Ver Detalles":
+                    System.out.println("Abrir ventana de detalles del proveedor...");
+                    break;
+            }
+        } else {
+            System.out.println("No se encontró un proveedor con esa cédula.");
         }
     }
-
 }

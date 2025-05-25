@@ -20,16 +20,12 @@ public class VentanaRegistroEmpleado extends Frame {
     private Button btnRegistrar;
     private Button btnRegresar;
 
-    private List<Empleado> listaEmpleados;
-
     public VentanaRegistroEmpleado(List<Empleado> listaEmpleados) {
 
         setTitle("REGISTRANDOSE...");
         setSize(400, 300);
         setLayout(new GridLayout(8, 2));
         setLocationRelativeTo(null);
-
-        this.listaEmpleados = listaEmpleados;
 
         add(new Label("Nombre:"));
         txtNombre = new TextField();
@@ -64,8 +60,8 @@ public class VentanaRegistroEmpleado extends Frame {
         btnRegistrar = new Button("Registrar");
         btnRegresar = new Button("Regresar");
 
-        add(btnRegistrar);
         add(btnRegresar);
+        add(btnRegistrar);
 
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
@@ -77,10 +73,10 @@ public class VentanaRegistroEmpleado extends Frame {
                             txtUsuario.getText().trim(), txtContrasena.getText().trim());
                     listaEmpleados.add(nuevoEmpleado);
                     System.out.println("Empleado registrado exitosamente.");
+                    dispose();
                 } else {
                     System.out.println("ERROR, empleado no registrado, todos los campos son obligatorios.");
                 }
-                dispose();
             }
         });
 
@@ -88,7 +84,6 @@ public class VentanaRegistroEmpleado extends Frame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                VentanaIniciarSesion ventana = new VentanaIniciarSesion(listaEmpleados);
             }
         });
 
