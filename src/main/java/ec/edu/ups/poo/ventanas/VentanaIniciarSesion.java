@@ -1,12 +1,11 @@
 package ec.edu.ups.poo.ventanas;
 
-import ec.edu.ups.poo.App;
 import ec.edu.ups.poo.clases.Empleado;
+import ec.edu.ups.poo.clases.Proveedor;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaIniciarSesion extends Frame {
@@ -20,18 +19,17 @@ public class VentanaIniciarSesion extends Frame {
     private Label lblUsuario;
     private Label lblContrasena;
 
-    private List<Empleado> listaEmpleados;
-    private VentanaRegistroEmpleado ventanaRegistroEmpleado;
-    private VentanaPrincipal ventanaPrincipal;
+    private final List<Empleado> listaEmpleados;
+    private final List<Proveedor> listaProveedores;
 
-    public VentanaIniciarSesion(List<Empleado> listaEmpleados) {
+    public VentanaIniciarSesion(List<Empleado> listaEmpleados, List<Proveedor> listaProveedores) {
         setTitle("Gestión de Órdenes de Compra");
         setSize(400, 150);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
         this.listaEmpleados = listaEmpleados;
-
+        this.listaProveedores = listaProveedores;
         mostrarTodosEmpleados();
 
         panelSuperior = new Panel(new FlowLayout(FlowLayout.LEFT));
@@ -60,9 +58,9 @@ public class VentanaIniciarSesion extends Frame {
         btnIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean verificador = verificarCredenciales(txtUsuario.getText().trim(),txtContrasena.getText().trim());
-                if(verificador){
-                    ventanaPrincipal = new VentanaPrincipal();
+                boolean verificador = verificarCredenciales(txtUsuario.getText().trim(), txtContrasena.getText().trim());
+                if (verificador) {
+                    new VentanaPrincipal(listaEmpleados, listaProveedores);
                     dispose();
                 }
             }
@@ -71,12 +69,23 @@ public class VentanaIniciarSesion extends Frame {
         btnRegistrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaRegistroEmpleado = new VentanaRegistroEmpleado(listaEmpleados);
-                dispose();
+                new VentanaRegistroEmpleado(listaEmpleados);
             }
         });
 
         setVisible(true);
+    }
+
+    public boolean verificarCredenciales(String usuarioIngresado, String contrasenaIngresada) {
+        for (Empleado empleado : listaEmpleados) {
+            if (empleado.getUsuario().equals(usuarioIngresado) &&
+                    empleado.getContrasena().equals(contrasenaIngresada)) {
+                System.out.println("Ingreso Exitoso. Bienvenido, " + empleado.getUsuario());
+                return true;
+            }
+        }
+        System.out.println("Usuario o contraseña incorrectas.");
+        return false;
     }
 
     public void mostrarTodosEmpleados() {
@@ -88,17 +97,5 @@ public class VentanaIniciarSesion extends Frame {
             }
         }
     }
-
-    public boolean verificarCredenciales(String usuarioIngresado, String contrasenaIngresada) {
-        boolean verificacion = false;
-        for (Empleado empleado : listaEmpleados) {
-            if (empleado.getUsuario().equals(usuarioIngresado) &&
-                    empleado.getContrasena().equals(contrasenaIngresada)) {
-                System.out.println("Ingreso Exitoso. Bienvenido, " + empleado.getUsuario());
-                return verificacion = true;
-            }
-        }
-        System.out.println("Usuario o contraseña incorrectas.");
-        return verificacion;
-    }
 }
+

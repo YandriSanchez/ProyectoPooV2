@@ -13,15 +13,16 @@ public class App {
 
     private static final List<Empleado> listaEmpleados = new ArrayList<>();
     private static final List<Proveedor> listaProveedores = new ArrayList<>();
-    private static List<ProductoConImpuesto> listaProductosConImpuestos;
-    private static List<ProductoSinImpuesto> listaProductosSinImpuestos;
-    private List<? extends Producto> listaProductos;
+    //private List<? extends Producto> listaProductos;
 
     public static void main(String[] args) {
-        VentanaIniciarSesion ventanaLogin = new VentanaIniciarSesion(listaEmpleados);
+        agregarEmpleadosPorDefecto();
+        proveedoresPorDefecto();
+        new VentanaIniciarSesion(listaEmpleados, listaProveedores);
+
     }
 
-    public void agregarEmpleadosPorDefecto() {
+    public static void agregarEmpleadosPorDefecto() {
         List<Empleado> empleadosPorDefecto = Arrays.asList(
                 new Empleado("Carlos Ramírez", "1101160032", "0987123456", "carlos.ramirez@empresa.ec", "Av. Colón 321", "carlosr", "Carlos2025"),
                 new Empleado("María Fernández", "1719690487", "0976543210", "maria.fernandez@empresa.ec", "Calle Bolívar 789", "mariaf", "MariaPass"),
@@ -32,9 +33,9 @@ public class App {
         listaEmpleados.addAll(empleadosPorDefecto);
     }
 
-    public List<Proveedor> proveedoresPorDefecto() {
-        listaProductosConImpuestos = new ArrayList<>();
-        listaProductosSinImpuestos = new ArrayList<>();
+    public static List<Proveedor> proveedoresPorDefecto() {
+        List<ProductoConImpuesto> listaProductosConImpuestos = new ArrayList<>();
+        List<ProductoSinImpuesto> listaProductosSinImpuestos = new ArrayList<>();
 
         listaProductosConImpuestos.add(new ProductoConImpuesto("Smartphone Samsung", "SAM001", 899.99, TipoProductoConImpuesto.VALOR_AGREGADO_IVA));
         listaProductosConImpuestos.add(new ProductoConImpuesto("Laptop Dell XPS", "DEL002", 1350.50, TipoProductoConImpuesto.VALOR_AGREGADO_IVA));
@@ -52,7 +53,6 @@ public class App {
         Proveedor proveedor2 = new Proveedor("AutoPartes Ecuador", "0703094458", "0965432109", "info@autopartes.ec", "Av. Amazonas 789", true, listaProductosConImpuestos);
         listaProveedores.add(proveedor2);
 
-        listaProductosSinImpuestos.clear();
         listaProductosSinImpuestos.add(new ProductoSinImpuesto("Frutas Frescas", "FRU104", 5.00, TipoProductoSinImpuesto.ALIMENTO_BASICO));
         listaProductosSinImpuestos.add(new ProductoSinImpuesto("Aceite de oliva", "ACE106", 7.00, TipoProductoSinImpuesto.ALIMENTO_BASICO));
         listaProductosSinImpuestos.add(new ProductoSinImpuesto("Harina de trigo", "HAR107", 2.00, TipoProductoSinImpuesto.ALIMENTO_BASICO));
