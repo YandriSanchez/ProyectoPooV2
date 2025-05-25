@@ -2,10 +2,12 @@ package ec.edu.ups.poo.ventanas;
 
 import ec.edu.ups.poo.clases.Empleado;
 import ec.edu.ups.poo.clases.Proveedor;
+import ec.edu.ups.poo.clases.SolicitudCompra;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaIniciarSesion extends Frame {

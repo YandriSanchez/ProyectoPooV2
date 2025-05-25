@@ -116,6 +116,37 @@ public class GestorCompras{
                 "\nAPROBADA"+
                 "\nRECHAZADA");
         return EstadoSolicitud.valueOf(scanner.next().toUpperCase());
+    }
+
+    public boolean removerItem(String codigoProducto) {
+        for (ItemCompra item : listadoItemProductos) {
+            if (item.getProducto().getCodigo().equals(codigoProducto)) {
+                listadoItemProductos.remove(item);
+                System.out.println("Producto removido: " + codigoProducto);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ItemCompra buscarItem(String nombreProducto) {
+        for (ItemCompra item : listadoItemProductos) {
+            if (item.getProducto().getNombre().equalsIgnoreCase(nombreProducto)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public void mostrarResumenCompra() {
+        System.out.println("Resumen de la Compra:");
+        System.out.println("Fecha de emisión: " + fechaEmision.getTime());
+        System.out.println("Estado: " + estado);
+        System.out.println("Productos:");
+        for (ItemCompra item : listadoItemProductos) {
+            System.out.println(item);
+        }
+        System.out.println("Total: " + calcularTotal());
     }*/
 
 }
