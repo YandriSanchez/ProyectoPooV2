@@ -70,26 +70,4 @@ public class App {
         return listaProveedores;
     }
 
-
-    public Proveedor buscarProveedor(String identificacion) {
-        for (Proveedor proveedor : listaProveedores) {
-            if (proveedor.getIdentificacion().equals(identificacion)) {
-                return proveedor;
-            }
-        }
-        System.out.println("Proveedor no encontrado.");
-        return null;
-    }
-
-    public void eliminarProveedor(String identificacion) {
-        for (Proveedor proveedor : listaProveedores) {
-            if (proveedor.getIdentificacion().equals(identificacion)) {
-                listaProveedores.remove(proveedor);
-                System.out.println("Proveedor eliminado.");
-                return;
-            }
-        }
-        System.out.println("Proveedor no encontrado.");
-    }
-
 }

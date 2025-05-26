@@ -144,10 +144,10 @@ public class VentanaGestionCompra extends Frame {
                     new VentanaEditarCompra(compraEncontrada, listaCompras, listaProveedores);
                     break;
                 case "Ver Detalles":
-                    // new VentanaDetallesCompra(compraEncontrada);
+                    new VentanaDetallesCompra(compraEncontrada, listaCompras, listaProveedores);
                     break;
                 case "Aplicar Descuento":
-                    // compraEncontrada.aplicarDescuento(); // Implementar en SolicitudCompra
+                    new VentanaAplicarDescuento(compraEncontrada, listaCompras, listaProveedores);
                     System.out.println("Descuento aplicado.");
                     break;
             }
