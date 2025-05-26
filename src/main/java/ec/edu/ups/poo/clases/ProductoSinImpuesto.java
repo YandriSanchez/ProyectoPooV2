@@ -1,4 +1,5 @@
 package ec.edu.ups.poo.clases;
+
 import ec.edu.ups.poo.enums.TipoProductoSinImpuesto;
 
 public class ProductoSinImpuesto extends Producto {
@@ -10,8 +11,11 @@ public class ProductoSinImpuesto extends Producto {
         this.tipoExencion = tipoExencion;
     }
 
-    public double calcularPrecioFinal(double precioBase) {
-        return precioBase;
+    @Override
+    public double aplicarDescuento(double porcentajeDescuento) {
+        this.precio *= (1 - porcentajeDescuento / 100); // Modifica directamente el atributo precio
+        this.precio = Math.max(this.precio, 0); // Evita valores negativos
+        return this.precio;
     }
 
     public TipoProductoSinImpuesto getTipoExencion() {
@@ -22,19 +26,13 @@ public class ProductoSinImpuesto extends Producto {
         this.tipoExencion = tipoExencion;
     }
 
+    @Override
     public String toString() {
         return "\nProductoSinImpuesto{" +
                 "nombre='" + getNombre() + '\'' +
                 ", codigo='" + getCodigo() + '\'' +
-                ", precioSinImpuesto=" + getPrecio() +
+                ", precioFinal=" + getPrecio() +
                 ", tipoImpuesto=" + tipoExencion +
                 '}';
     }
-
-    @Override
-    public double aplicarDescuento(double porcentajeDescuento) {
-        double precioConDescuento = getPrecio() * (1 - porcentajeDescuento / 100);
-        return Math.max(precioConDescuento, 0);
-    }
-
 }

@@ -78,4 +78,8 @@ public class SolicitudCompra implements OperacionesCompra {
     public ItemCompra[] getListadoItemProductos() {
         return listadoItemProductos.toArray(new ItemCompra[listadoItemProductos.size()]);
     }
+
+    public void setListadoItemProductos(ItemCompra[] listadoItemProductos) {
+
+    }
 }

@@ -3,7 +3,7 @@ package ec.edu.ups.poo.clases;
 public abstract class Producto {
     private String nombre;
     private String codigo;
-    private double precio;
+    public double precio;
 
     public Producto(String nombre, String codigo, double precio) {
         this.nombre = nombre;
